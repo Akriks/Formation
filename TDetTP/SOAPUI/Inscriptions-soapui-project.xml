@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="Inscriptions" resourceRoot="" soapui-version="4.6.2" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="GererInscriptionSoapBinding" type="wsdl" bindingName="{http://www.universite.org/Interfaces/GestionInscriptions/v1}GererInscriptionSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/FormationMaster/TDetTP/GestionInscriptions-1.0.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\FormationMaster\TDetTP\GestionInscriptions-1.0.wsdl"><con:part><con:url>file:\C:\FormationMaster\TDetTP\GestionInscriptions-1.0.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" xmlns:intf="http://www.universite.org/Interfaces/GestionInscriptions/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:exception="http://www.universite.org/Interfaces/exception" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <schema targetNamespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:etud="http://www.universite.org/Interfaces/Etudiant/v1/model">
+      <import namespace="http://www.universite.org/Interfaces/Etudiant/v1/model" schemaLocation="etudiant.xsd"/>
+      <import namespace="http://www.universite.org/Interfaces/exception" schemaLocation="exception.xsd"/>
+      <!--elements decrivant les exceptions specifiques a ce service Web-->
+      <element name="etudiantInexistant">
+        <complexType>
+          <complexContent>
+            <xsd:extension base="exception:WSErreurFonctionelle"/>
+          </complexContent>
+        </complexType>
+      </element>
+      <element name="InfosEtudiantIncorrect">
+        <complexType>
+          <complexContent>
+            <xsd:extension base="exception:WSErreurFonctionelle"/>
+          </complexContent>
+        </complexType>
+      </element>
+      <!--elements utilises dans les messages des differentes operations du service-->
+      <element name="listerInscrits">
+        <complexType/>
+      </element>
+      <element name="listerInscritsReponse">
+        <complexType>
+          <sequence>
+            <element name="inscrit" type="etud:EtudiantType" minOccurs="0" maxOccurs="unbounded"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="inscrireEtudiant">
+        <complexType>
+          <sequence>
+            <element name="etudiant" type="etud:EtudiantType"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="inscrireEtudiantReponse">
+        <complexType/>
+      </element>
+      <element name="annulerInscription">
+        <complexType>
+          <sequence>
+            <element name="id" type="xsd:string" minOccurs="0"/>
+            <element name="Nom" type="xsd:string" minOccurs="0"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="annulerInscriptionReponse">
+        <complexType/>
+      </element>
+    </schema>
+  </wsdl:types>
+  <!--Description de l'ensemble des messages qui pourront etre echanges-->
+  <wsdl:message name="listerInscritsRequete">
+    <wsdl:part name="parameters" element="intf:listerInscrits"/>
+  </wsdl:message>
+  <wsdl:message name="listerInscritsReponse">
+    <wsdl:part name="parameters" element="intf:listerInscritsReponse"/>
+  </wsdl:message>
+  <wsdl:message name="inscrireEtudiantRequete">
+    <wsdl:part name="parameters" element="intf:inscrireEtudiant"/>
+  </wsdl:message>
+  <wsdl:message name="inscrireEtudiantReponse">
+    <wsdl:part name="parameters" element="intf:inscrireEtudiantReponse"/>
+  </wsdl:message>
+  <wsdl:message name="annulerInscriptionRequete">
+    <wsdl:part name="parameters" element="intf:annulerInscription"/>
+  </wsdl:message>
+  <wsdl:message name="annulerInscriptionReponse">
+    <wsdl:part name="parameters" element="intf:annulerInscriptionReponse"/>
+  </wsdl:message>
+  <wsdl:message name="etudiantInexistantFault">
+    <wsdl:part name="fault" element="intf:etudiantInexistant"/>
+  </wsdl:message>
+  <wsdl:message name="InfosEtudiantIncorrectFault">
+    <wsdl:part name="fault" element="intf:InfosEtudiantIncorrect"/>
+  </wsdl:message>
+  <wsdl:message name="erreurTechniqueFault">
+    <wsdl:part name="fault" element="exception:erreurTechnique"/>
+  </wsdl:message>
+  <!--la description du service et de l'ensemble de ses operations-->
+  <wsdl:portType name="GererInscriptionSoap">
+    <wsdl:operation name="listerInscrits">
+      <wsdl:input name="listerInscritsRequete" message="intf:listerInscritsRequete"/>
+      <wsdl:output name="listerInscritsReponse" message="intf:listerInscritsReponse"/>
+      <wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="inscrireEtudiant">
+      <wsdl:input name="inscrireEtudiantRequete" message="intf:inscrireEtudiantRequete"/>
+      <wsdl:output name="inscrireEtudiantReponse" message="intf:inscrireEtudiantReponse"/>
+      <wsdl:fault name="InfosEtudiantIncorrectFault" message="intf:InfosEtudiantIncorrectFault"/>
+      <wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="annulerInscription">
+      <wsdl:input name="annulerInscriptionRequete" message="intf:annulerInscriptionRequete"/>
+      <wsdl:output name="annulerInscriptionReponse" message="intf:annulerInscriptionReponse"/>
+      <wsdl:fault name="etudiantInexistantFault" message="intf:etudiantInexistantFault"/>
+      <wsdl:fault name="erreurTechniqueFault" message="intf:erreurTechniqueFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <!--binding HTTP pour le service et toutes ses operations, utilisation du mode literal-->
+  <wsdl:binding name="GererInscriptionSoapBinding" type="intf:GererInscriptionSoap">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="listerInscrits">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="listerInscritsRequete">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="listerInscritsReponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="erreurTechniqueFault">
+        <soap:fault name="erreurTechniqueFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inscrireEtudiant">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="inscrireEtudiantRequete">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="inscrireEtudiantReponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="InfosEtudiantIncorrectFault">
+        <soap:fault name="InfosEtudiantIncorrectFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="erreurTechniqueFault">
+        <soap:fault name="erreurTechniqueFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="annulerInscription">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="annulerInscriptionRequete">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="annulerInscriptionReponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="etudiantInexistantFault">
+        <soap:fault name="etudiantInexistantFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="erreurTechniqueFault">
+        <soap:fault name="erreurTechniqueFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GererInscriptionSoapService">
+    <wsdl:port name="GererInscription" binding="intf:GererInscriptionSoapBinding">
+      <soap:address location="http://localhost:8080/monappli/services/gestioninscription-1.0"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\FormationMaster\TDetTP\etudiant.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.universite.org/Interfaces/Etudiant/v1/model" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:etud="http://www.universite.org/Interfaces/Etudiant/v1/model">
+  <annotation>
+    <documentation>Cette 1iere version de schema decrit la structure XML d'un étudiant au format XSD</documentation>
+  </annotation>
+  <!--On utilise une énumération pour décrire le type de voie-->
+  <simpleType name="VoieType">
+    <restriction base="string">
+      <enumeration value="Rue"/>
+      <enumeration value="Avenue"/>
+      <enumeration value="Boulevard"/>
+      <enumeration value="Impasse"/>
+    </restriction>
+  </simpleType>
+  <!--On définit la structure de l'adresse-->
+  <complexType name="AdresseType">
+    <sequence>
+      <element name="numVoie" type="positiveInteger" minOccurs="0"/>
+      <element name="typeVoie" type="etud:VoieType" minOccurs="0"/>
+      <element name="nomVoie" type="string" minOccurs="0"/>
+      <element name="complement" type="string" minOccurs="0"/>
+      <element name="codePostal" minOccurs="1">
+        <simpleType>
+          <restriction base="positiveInteger">
+            <pattern value="([0-9]{5})"/>
+            <minInclusive value="01000"/>
+          </restriction>
+        </simpleType>
+      </element>
+      <element name="commune" type="string" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--La structure pour un étudiant-->
+  <complexType name="EtudiantType">
+    <sequence>
+      <element name="Identifiant" type="string" minOccurs="1" maxOccurs="1"/>
+      <!--nous pouvons éviter de mettre minOccurs et maxOccurs car par défaut ils sont à 1-->
+      <element name="Prenom" type="string"/>
+      <element name="Nom" type="string"/>
+      <element name="Adresse" type="etud:AdresseType"/>
+    </sequence>
+  </complexType>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\FormationMaster\TDetTP\exception.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.universite.org/Interfaces/exception" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.universite.org/Interfaces/exception">
+  <!--On ne versionne pas ces exceptions considérées comme la base stable-->
+  <complexType name="WSErreur">
+    <sequence>
+      <!--classe et méthode où est apparue l'erreur-->
+      <element name="classe" minOccurs="0" type="string"/>
+      <element name="methode" minOccurs="0" type="string"/>
+      <element name="raison" minOccurs="0" type="string"/>
+      <element name="description" minOccurs="0" type="string"/>
+    </sequence>
+  </complexType>
+  <complexType name="WSErreurTechnique">
+    <complexContent>
+      <extension base="tns:WSErreur">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WSErreurFonctionelle">
+    <complexContent>
+      <extension base="tns:WSErreur">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="erreurTechnique" type="tns:WSErreurTechnique"/>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/monappli/services/gestioninscription-1.0</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="annulerInscription" bindingOperationName="annulerInscription" type="Request-Response" outputName="annulerInscriptionReponse" inputName="annulerInscriptionRequete" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/monappli/services/gestioninscription-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.universite.org/Interfaces/GestionInscriptions/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:annulerInscription>
+         <!--Optional:-->
+         <v1:id>gero et</v1:id>
+         <!--Optional:-->
+         <v1:Nom>sonoras imperio</v1:Nom>
+      </v1:annulerInscription>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.universite.org/Interfaces/GestionInscriptions/v1/GererInscriptionSoap/annulerInscriptionRequete"/></con:call></con:operation><con:operation isOneWay="false" action="" name="inscrireEtudiant" bindingOperationName="inscrireEtudiant" type="Request-Response" outputName="inscrireEtudiantReponse" inputName="inscrireEtudiantRequete" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/monappli/services/gestioninscription-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.universite.org/Interfaces/GestionInscriptions/v1" xmlns:mod="http://www.universite.org/Interfaces/Etudiant/v1/model">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:inscrireEtudiant>
+         <v1:etudiant>
+            <mod:Identifiant>gero et</mod:Identifiant>
+            <mod:Prenom>sonoras imperio</mod:Prenom>
+            <mod:Nom>quae divum incedo</mod:Nom>
+            <mod:Adresse>
+               <!--Optional:-->
+               <mod:numVoie>201</mod:numVoie>
+               <!--Optional:-->
+               <mod:typeVoie>Avenue</mod:typeVoie>
+               <!--Optional:-->
+               <mod:nomVoie>temperat iras</mod:nomVoie>
+               <!--Optional:-->
+               <mod:complement>turbine corripuit</mod:complement>
+               <mod:codePostal>1000</mod:codePostal>
+               <!--Optional:-->
+               <mod:commune>regemque dedit</mod:commune>
+            </mod:Adresse>
+         </v1:etudiant>
+      </v1:inscrireEtudiant>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.universite.org/Interfaces/GestionInscriptions/v1/GererInscriptionSoap/inscrireEtudiantRequete"/></con:call></con:operation><con:operation isOneWay="false" action="" name="listerInscrits" bindingOperationName="listerInscrits" type="Request-Response" outputName="listerInscritsReponse" inputName="listerInscritsRequete" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/monappli/services/gestioninscription-1.0</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://www.universite.org/Interfaces/GestionInscriptions/v1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:listerInscrits/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.universite.org/Interfaces/GestionInscriptions/v1/GererInscriptionSoap/listerInscritsRequete"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>

@@ -1,0 +1,99 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Ahmed K.">
+<title>readme</title>
+</head>
+<body bgcolor="#FFFFFF">
+
+	<center>
+		<h2>
+			<font face="Arial"><font color="#6633CC">Création de
+					schémas XML et de document XML respectant ce schema</font></font>
+		</h2>
+	</center>
+	<font face="Arial"><font size=-1>Utilisation de XSD pour
+			montrer la création de structures de documents XML.<br> Montrer
+			l'intérêt des typages forts avec la richesse des restrictions,
+			patterns de validation, et...
+	</font></font>
+	<br>&nbsp;
+	<center>
+		<table BORDER="2">
+			<tr>
+				<td ALIGN=CENTER WIDTH="93" BGCOLOR="#CCCCCC"><b><font
+						face="Arial"><font color="#003399"><font size=-1>Example</font></font></font></b></td>
+
+				<td ALIGN=CENTER BGCOLOR="#CCCCCC" width="552"><b><font
+						face="Arial"><font color="#003399"><font size=-1>Description</font></font></font></b></td>
+			</tr>
+			<TR>
+				<TD width="93" height="33"><FONT face="Arial"><FONT
+						face="Arial"><FONT face="Arial"><FONT size="-1"><A
+									href="#Etudiant">Etudiant</A></FONT></FONT></FONT></FONT></TD>
+				<TD height="33" width="552"><FONT face="Arial"><FONT
+						face="Arial"><FONT face="Arial"><FONT size="-1">Cet
+									exemple définit un schema XML d'un dossier administratif
+									d'étudiant. Il montre l'utilisation des structures imbriquées
+									(Adresse) ainsi que l'utilisation des restrictions pour
+									préciser le format du code postal.</FONT></FONT></FONT></FONT><BR></TD>
+			</TR>
+			<TR>
+				<TD width="93" height="33"><FONT face="Arial"><FONT
+						face="Arial"><FONT face="Arial"><FONT size="-1"><A
+									href="#substitutionGroup">PublicationCatalogue</A></FONT></FONT></FONT></FONT></TD>
+				<TD height="33" width="552"><FONT face="Arial"><FONT
+						face="Arial"><FONT face="Arial"><FONT size="-1">This
+									example shows how to define substitutionGroup in an XML schema
+									file and then use the substitution in the XML instance
+									document. </FONT></FONT></FONT></FONT><BR></TD>
+			</TR>
+		</table>
+	</center>
+
+	<p>
+	<hr WIDTH="100%">
+	<p>
+		<a NAME="Etudiant"></a><font face="Arial,Helvetica"><font
+			color="#000000"><font size=+1>Edition Etudiant.xml</font></font></font>
+	<p>
+		<font face="Arial,Helvetica"><font color="#000000"><font
+				size=-1>Etudiant.xsd décrit la manière dont un document XML
+					doit être décrit. Il précise qu'un ou plusieurs étudiants peuvent
+					être présents dans un document et que chaque étudiant a un
+					identifiant, nom, prénom et Adresse. L'adresse ayant elle-meme une
+					structure bien définie avec un numéro de voie, un nom de voie, un
+					type de voie avec utilisant de l'énumération, un code postal
+					composé de 5 chiffres et ne pouvant être 00000.
+					Nous utiliserons les fonctionnalités d'Eclipse liées à un projet typé XML pour générer des squelettes
+					de documents XML avec possibilité de produire des valeurs ou non pour les éléments optionnels, 
+					ainsi que des données respectant les énumérations. </font></font></font>
+	<p>
+	<hr WIDTH="100%">
+	<br>
+	<a NAME="substitutionGroup"></a>
+	<font face="Arial,Helvetica"><font color="#000000"><font
+			size=+1>Using Substitution Groups</font></font></font>
+	<p>
+		XML Schema allows named groups of elements to be substituted for other
+		elements. The Catalogue.xsd file declares <b>Book</b> and <b>Magazine</b>
+		to be in a substitution group with <b>Publication</b>:
+	<pre>&nbsp;&nbsp;&nbsp; &lt;element name="Book" type="Catalogue:BookType" substitutionGroup="Catalogue:Publication"/>
+&nbsp;&nbsp;&nbsp; &lt;element name="Magazine" type="Catalogue:MagazineType" substitutionGroup="Catalogue:Publication"/></pre>
+	The content of
+	<b>Catalogue</b> can be any element that is in the substitution group.
+	In the Design View of the XML Editor, select the Add Child menu on the
+	<b>Catalogue</b> element. Notice how both
+	<b>Book</b> and
+	<b>Magazine</b> can be substituted as the content of the
+	<b>Publication</b> element. In additon, we have declared the
+	<b>Publication</b> element as
+	<i>abstract</i>, to prevent the
+	<b>Publication</b> element to be used directly in the instance
+	document..
+	<br>&nbsp;
+	<BR>
+
+</body>
+</html>

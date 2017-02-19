@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.universite.com/Interfaces/GestionCours/v1/model"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:univ="http://www.universite.com/Interfaces/GestionCours/v1/model"
+	elementFormDefault="qualified">
+
+	<!-- structure de base commune à tous nos éléments -->
+	<complexType abstract="true" name="ModelAbstrait">
+		<sequence>
+			<element name="description" type="xsd:string" minOccurs="0" />
+			<element name="nom" type="xsd:string" minOccurs="0" />
+			<element name="id" type="xsd:int" minOccurs="0" />
+		</sequence>
+	</complexType>
+	
+	<!-- Le cours étend la structure de base abstraite -->
+	<complexType name="Matiere">
+		<complexContent>
+			<extension base="univ:ModelAbstrait">
+				<sequence>
+					<element name="obligatoire" type="xsd:boolean" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+</schema>

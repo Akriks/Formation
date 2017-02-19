@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.universite.org/Interfaces/Etudiant/v1/model"
+	xmlns:etud="http://www.universite.org/Interfaces/Etudiant/v1/model"
+	elementFormDefault="qualified">
+
+	 <annotation>
+		  <documentation>
+		  	Cette 1iere version de schema decrit la structure XML d'un étudiant au format XSD
+		  </documentation>
+	  </annotation>
+  
+	<!-- On utilise une énumération pour décrire le type de voie -->
+  <simpleType name="VoieType">
+    <restriction base="string">
+      <enumeration value="Rue"></enumeration>
+      <enumeration value="Avenue"></enumeration>
+      <enumeration value="Boulevard"></enumeration>
+      <enumeration value="Impasse"></enumeration>
+    </restriction>
+  </simpleType>	
+
+	<!--  On définit la structure de l'adresse -->	
+	<complexType  name="AdresseType">
+		<sequence>
+			<element name="numVoie" type="positiveInteger" minOccurs="0" />
+			<element name="typeVoie" type="etud:VoieType" minOccurs="0" />
+			<element name="nomVoie" type="string" minOccurs="0" />
+			<element name="complement" type="string" minOccurs="0" />
+			<element name="codePostal"  minOccurs="1">
+				<simpleType>
+				 	<restriction base="positiveInteger">
+	    				<totalDigits value="5" fixed="true"/>
+	    				<minInclusive value="01000"/>
+	  				</restriction>
+  				</simpleType>
+  			</element>
+			<element name="commune" type="string" minOccurs="0" />
+		</sequence>
+	</complexType>
+	
+	<!-- La structure pour un étudiant -->
+	<complexType name="EtudiantType">
+		<sequence>
+			<element name="Identifiant" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<!-- nous pouvons éviter de mettre minOccurs et maxOccurs car par défaut 
+				ils sont à 1 -->
+			<element name="Prenom" type="string"></element>
+			<element name="Nom" type="string"></element>
+			<element name="Adresse" type="etud:AdresseType"></element>
+		</sequence>	
+    </complexType>
+</schema>

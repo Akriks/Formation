@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.universite.org/Interfaces/exception"
+	xmlns:tns="http://www.universite.org/Interfaces/exception"
+	elementFormDefault="qualified">
+
+
+	<!-- On ne versionne pas ces exceptions considérées comme la base stable -->
+	<complexType name="WSErreur">
+		<sequence>
+			<!--  classe et méthode où est apparue l'erreur, on retrouve ces concepts sur différents langages pas uniquement Java -->
+			<element name="classe" minOccurs="0" type="string" />
+			<element name="methode" minOccurs="0" type="string" />
+			<element name="raison" minOccurs="0" type="string" />
+			<element name="description" minOccurs="0" type="string" />
+		</sequence>
+	</complexType>
+
+
+	<complexType name="WSErreurTechnique">
+		<complexContent>
+			<extension base="tns:WSErreur">
+				<sequence />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="WSErreurFonctionelle">
+		<complexContent>
+			<extension base="tns:WSErreur">
+				<sequence />
+			</extension>
+		</complexContent>
+	</complexType>
+
+
+	<element name="erreurTechnique" type="tns:WSErreurTechnique"/>
+
+</schema>

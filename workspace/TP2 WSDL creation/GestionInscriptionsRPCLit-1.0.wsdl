@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.universite.org/Interfaces/GestionInscriptions/v1"
+	xmlns:intf="http://www.universite.org/Interfaces/GestionInscriptions/v1"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:exception="http://www.universite.org/Interfaces/exception" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+	<wsdl:types>	
+	
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" 
+			xmlns:etud="http://www.universite.org/Interfaces/Etudiant/v1/model"
+			xmlns:exception="http://www.universite.org/Interfaces/exception"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			elementFormDefault="qualified">
+
+			<import namespace="http://www.universite.org/Interfaces/Etudiant/v1/model" schemaLocation="etudiant.xsd" />
+			<import namespace="http://www.universite.org/Interfaces/exception" schemaLocation="exception.xsd" />
+
+
+			<!-- elements decrivant les exceptions specifiques a ce service Web -->
+
+			<complexType name="InfosEtudiantIncorrectType">
+					<complexContent>
+						<xsd:extension base="exception:WSErreurFonctionelle" />
+					</complexContent>
+				</complexType>
+         </schema>
+      </wsdl:types>
+
+<!--  Description de l'ensemble des messages qui pourront etre echanges -->
+	<wsdl:message name="listerInscritsRequete">
+		<wsdl:part name="listerInscritsRequete" type="xsd:string"/>		
+	</wsdl:message>
+	<wsdl:message name="listerInscritsReponse">
+		<wsdl:part name="listerInscritsReponse" type="xsd:string"/>		
+	</wsdl:message>
+	<wsdl:message name="inscrireEtudiantRequete">
+		<wsdl:part name="inscrireEtudiantRequete" type="xsd:string"/>		
+	</wsdl:message>
+	<wsdl:message name="inscrireEtudiantReponse">
+		<wsdl:part name="inscrireEtudiantReponse" type="xsd:string"/>		
+	</wsdl:message>
+	<wsdl:message name="InfosEtudiantIncorrectFault">
+		<wsdl:part name="fault" type="intf:InfosEtudiantIncorrectType" />
+	</wsdl:message>
+	<wsdl:message name="erreurTechniqueFault">
+		<wsdl:part name="fault" element="exception:erreurTechnique" />
+	</wsdl:message>	
+
+<!-- la description du service et de l'ensemble de ses operations -->	
+	<wsdl:portType name="GererInscriptionSoap">
+	
+		<wsdl:operation name="listerInscrits">
+			<wsdl:input name="listerInscritsRequete"	message="intf:listerInscritsRequete" />
+			<wsdl:output name="listerInscritsReponse"	message="intf:listerInscritsReponse" />
+			<wsdl:fault name="erreurTechniqueFault"			message="intf:erreurTechniqueFault" />
+		</wsdl:operation>
+		
+		<wsdl:operation name="inscrireEtudiant">
+			<wsdl:input name="inscrireEtudiantRequete" 	message="intf:inscrireEtudiantRequete" />
+			<wsdl:output name="inscrireEtudiantReponse"	message="intf:inscrireEtudiantReponse" />
+			<wsdl:fault name="InfosEtudiantIncorrectFault"	message="intf:InfosEtudiantIncorrectFault" />
+			<wsdl:fault name="erreurTechniqueFault"	message="intf:erreurTechniqueFault"  />				
+		</wsdl:operation>
+		
+	</wsdl:portType>
+	
+
+<!-- binding HTTP pour le service et toutes ses operations, utilisation du mode literal -->
+	
+	<wsdl:binding name="GererInscriptionSoapBinding"
+		type="intf:GererInscriptionSoap">
+		<soap:binding style="rpc" 		transport="http://schemas.xmlsoap.org/soap/http" />
+		
+		<wsdl:operation name="listerInscrits">
+			<soap:operation soapAction="" />
+			<wsdl:input name="listerInscritsRequete">
+				<soap:body 
+					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="listerInscritsReponse">
+				<soap:body 
+					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="erreurTechniqueFault">
+				<soap:fault name="erreurTechniqueFault" 
+					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="inscrireEtudiant">
+			<soap:operation soapAction="" />
+			<wsdl:input name="inscrireEtudiantRequete">
+				<soap:body 
+					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="inscrireEtudiantReponse">
+				<soap:body 
+					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="InfosEtudiantIncorrectFault">
+				<soap:fault name="InfosEtudiantIncorrectFault" 
+					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" use="literal" />
+			</wsdl:fault>			
+			<wsdl:fault name="erreurTechniqueFault">
+				<soap:fault name="erreurTechniqueFault" 
+					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+	</wsdl:binding>
+	
+	
+	<wsdl:service name="GererInscriptionSoapService">
+		<wsdl:port name="GererInscription" 		binding="intf:GererInscriptionSoapBinding">
+			<soap:address
+				location="http://localhost:8080/monappli/services/gestioninscription/v1.0" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

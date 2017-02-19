@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<etud:etudiants xmlns:etud="http://www.universite.org/Interfaces/Etudiant/v1/model" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.universite.org/Interfaces/Etudiant/v1/model etudiant.xsd ">
+  <etud:etudiant>
+    <etud:Identifiant>etud:Identifiant</etud:Identifiant>
+    <etud:Prenom>etud:Prenom</etud:Prenom>
+    <etud:Nom>etud:Nom</etud:Nom>
+    <etud:Adresse>
+      <etud:numVoie>1</etud:numVoie>
+      <etud:typeVoie>Rue</etud:typeVoie>
+      <etud:nomVoie>etud:nomVoie</etud:nomVoie>
+      <etud:complement>etud:complement</etud:complement>
+      <etud:codePostal>01000</etud:codePostal>
+      <etud:commune>etud:commune</etud:commune>
+    </etud:Adresse>
+  </etud:etudiant>
+</etud:etudiants>

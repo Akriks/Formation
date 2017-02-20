@@ -3,7 +3,8 @@
 	targetNamespace="http://www.universite.org/Interfaces/GestionInscriptions/v1"
 	xmlns:intf="http://www.universite.org/Interfaces/GestionInscriptions/v1"
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:exception="http://www.universite.org/Interfaces/exception"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:etud="http://www.universite.org/Interfaces/Etudiant/v1/model" >
 
 	<wsdl:types>
 
@@ -19,34 +20,42 @@
 				schemaLocation="exception.xsd" />
 
 
-			<!-- elements decrivant les exceptions specifiques a ce service Web -->
+			<!-- types decrivant les exceptions specifiques a ce service Web -->
 
-			<complexType name="InfosEtudiantIncorrectType">
-				<complexContent>
-					<xsd:extension base="exception:WSErreurFonctionelle" />
-				</complexContent>
+			<complexType name="InfosEtudiantIncorrect">
+					<complexContent>
+						<xsd:extension base="exception:WSErreurFonctionelle" />
+					</complexContent>
 			</complexType>
+
+			<!-- types utilises dans les messages des differentes operations du 
+				service -->
+			<xsd:complexType name="inscrits">
+				<sequence>
+					<element name="inscrit" type="etud:EtudiantType" minOccurs="0"
+						maxOccurs="unbounded" />
+				</sequence>
+			</xsd:complexType>
+
 		</schema>
 	</wsdl:types>
 
+
 	<!-- Description de l'ensemble des messages qui pourront etre echanges -->
-	<wsdl:message name="listerInscritsRequete">
-		<wsdl:part name="listerInscritsRequete" type="xsd:string" />
-	</wsdl:message>
+	<wsdl:message name="listerInscritsRequete" />
 	<wsdl:message name="listerInscritsReponse">
-		<wsdl:part name="listerInscritsReponse" type="xsd:string" />
+		<wsdl:part name="inscrits" type="intf:inscrits" />
 	</wsdl:message>
 	<wsdl:message name="inscrireEtudiantRequete">
-		<wsdl:part name="inscrireEtudiantRequete" type="xsd:string" />
+		<wsdl:part name="inscription" type="etud:EtudiantType" />
 	</wsdl:message>
-	<wsdl:message name="inscrireEtudiantReponse">
-		<wsdl:part name="inscrireEtudiantReponse" type="xsd:string" />
-	</wsdl:message>
+	<wsdl:message name="inscrireEtudiantReponse" />
+
 	<wsdl:message name="InfosEtudiantIncorrectFault">
-		<wsdl:part name="fault" type="intf:InfosEtudiantIncorrectType" />
+		<wsdl:part name="fault" type="intf:InfosEtudiantIncorrect" />
 	</wsdl:message>
 	<wsdl:message name="erreurTechniqueFault">
-		<wsdl:part name="fault" element="exception:erreurTechnique" />
+		<wsdl:part name="fault" type="exception:WSErreurTechnique" />
 	</wsdl:message>
 
 	<!-- la description du service et de l'ensemble de ses operations -->
@@ -88,8 +97,7 @@
 					use="encoded" />
 			</wsdl:output>
 			<wsdl:fault name="erreurTechniqueFault">
-				<soap:fault name="erreurTechniqueFault"
-					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+				<soap:fault name="erreurTechniqueFault" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
 					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1"
 					use="encoded" />
 			</wsdl:fault>
@@ -108,16 +116,14 @@
 					use="encoded" />
 			</wsdl:output>
 			<wsdl:fault name="InfosEtudiantIncorrectFault">
-				<soap:fault name="InfosEtudiantIncorrectFault"
-					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+				<soap:fault name="InfosEtudiantIncorrectFault" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
 					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1"
 					use="encoded" />
 			</wsdl:fault>
 			<wsdl:fault name="erreurTechniqueFault">
-				<soap:fault name="erreurTechniqueFault"
-					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+				<soap:fault name="erreurTechniqueFault" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
 					namespace="http://www.universite.org/Interfaces/GestionInscriptions/v1"
-					use="encoded" />
+					use="encoded"  />
 			</wsdl:fault>
 		</wsdl:operation>
 

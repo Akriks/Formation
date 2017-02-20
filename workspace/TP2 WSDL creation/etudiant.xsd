@@ -30,7 +30,7 @@
 			<element name="codePostal"  minOccurs="1">
 				<simpleType>
 				 	<restriction base="positiveInteger">
-	    				<totalDigits value="5" fixed="true"/>
+	    				<pattern value="[0-9]{5}"/>
 	    				<minInclusive value="01000"/>
 	  				</restriction>
   				</simpleType>
